@@ -3,75 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comming Soon!</title>
+    <title>OP Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            overflow: hidden;
-            background-color: black;
+            padding: 0;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            scroll-behavior: smooth;
         }
-        .container {
+        header {
+            background-color: #111;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header img {
+            height: 50px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
             position: relative;
-            width: 100vw;
-            height: 100vh;
         }
-        .logo {
+        nav ul li {
+            margin: 0 20px;
+            position: relative;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+        nav ul li a::after {
+            content: "";
             position: absolute;
-            width: 100px;
-            height: 100px;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: #ff4500;
+            transition: width 0.3s ease-in-out;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        #hero {
+            padding: 100px 20px;
+            background: linear-gradient(to right, #222, #000);
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s;
+            font-family: Poppins, sans-serif;
+        }
+        .btn:hover {
+            background-color: #ff4500;
+            color: white;
+        }
+        .popup-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+        }
+
+        .popup-background.active, .popup.active {
+            display: block;
+        }
+
+        .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+    max-height: 80vh; /* Begrenzung der Höhe */
+    overflow-y: auto; /* Scrollbar aktivieren */
+}
+
+.team-card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+        .team-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://cdn.discordapp.com/avatars/1083814113643339777/26d4edea0253824433ec880844281d16.png?size=1024" class="logo" id="logo1">
-        <img src="https://cdn.discordapp.com/avatars/116140704346013705/a_5d3438bbde71eb68b04cf9d766c42cbe.gif?size=1024" class="logo" id="logo2">
+    <header>
+        <img src="https://images-ext-1.discordapp.net/external/XthCYxfVi2JZ7hseL0U0TIrsOsKOxaO1XzLZnUOK97E/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1190767920519843972/0f3801ac52e2638a85e1db1b8dea6e01.png?format=webp&quality=lossless" alt="OP Projects Logo" style="border-radius: 50%;">
+        <nav>
+            <ul>
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#join">Jetzt beitreten</a></li>
+                <li><a href="#" onclick="togglePopup()">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="hero">
+        <h2>Ein Server, geleitet von PinguinGang.</h2>
+        <p>Comming Soon!</p>
+        <a href="#join" class="btn">Server beitreten</a>
+    </section>
+    
+    <section id="about">
+        <h2>Über OP Projects</h2>
+        <p>OP Projects ist ein einzigartiger Minecraft-Server mit aufregenden Spielmodi, Custom-Plugins und einer aktiven Community.</p>
+    </section>
+    
+    <section id="join">
+        <h2>Jetzt beitreten!</h2>
+        <p>Server-IP: <strong>play.opprojects.net</strong></p>
+        <p>Version: 1.21+</p>
+    </section>
+    
+    <div id="popup-background" class="popup-background" onclick="togglePopup()"></div>
+    <div id="team-popup" class="popup">
+        <h2>Unser Team</h2>
+        <div class="team-card">
+            <img src="https://cdn.discordapp.com/avatars/1083814113643339777/26d4edea0253824433ec880844281d16.png?size=4096" alt="PinguinGang">
+            <h3>PinguinGang</h3>
+            <p>Owner</p>
+        </div>
+        <div class="team-card">
+            <img src="https://cdn.discordapp.com/avatars/116140704346013705/a_5d3438bbde71eb68b04cf9d766c42cbe.gif?size=1024" alt="Tom S.">
+            <h3>Tom S.</h3>
+            <p>Admin</p>
+        </div>
+        <div class="team-card">
+            <img src="https://cdn.discordapp.com/avatars/1153603197974351932/8810f4c264ab832c8e0cc9ab42fe7e5c?size=1024" alt="Biltzdingser">
+            <h3>Blitzdingser</h3>
+            <p>Admin</p>
+        </div>
+        <div class="team-card">
+            <img src="https://cdn.discordapp.com/avatars/1092127699746697266/ab7d7b6038c12fddcbbff89fb7d38c01?size=1024" alt="Lucy">
+            <h3>Lucy</h3>
+            <p>Admin</p>
+        </div>
+        <div class="team-card">
+            <img src="https://cdn.discordapp.com/avatars/1096395938878205993/ce6955748375b0ba783297f2e02192e0.png?size=1024" alt="Tantosy">
+            <h3>Tantosy</h3>
+            <p>Content</p>
+        </div>
+        <button class="btn" onclick="togglePopup()">Schließen</button>
     </div>
+    
+    <footer>
+        <p>&copy; ???</p>
+    </footer>
+    
     <script>
-        class DVDLogo {
-            constructor(element) {
-                this.el = element;
-                this.x = Math.random() * (window.innerWidth - 100);
-                this.y = Math.random() * (window.innerHeight - 100);
-                this.dx = (Math.random() < 0.5 ? 1 : -1) * 2;
-                this.dy = (Math.random() < 0.5 ? 1 : -1) * 2;
-            }
-            move() {
-                this.x += this.dx;
-                this.y += this.dy;
-                if (this.x <= 0 || this.x + 100 >= window.innerWidth) this.dx *= -1;
-                if (this.y <= 0 || this.y + 100 >= window.innerHeight) this.dy *= -1;
-                this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
-            }
+        function togglePopup() {
+            document.getElementById('team-popup').classList.toggle('active');
+            document.getElementById('popup-background').classList.toggle('active');
         }
-        
-        function checkCollision(logoA, logoB) {
-            return (
-                logoA.x < logoB.x + 100 &&
-                logoA.x + 100 > logoB.x &&
-                logoA.y < logoB.y + 100 &&
-                logoA.y + 100 > logoB.y
-            );
-        }
-        
-        const logo1 = new DVDLogo(document.getElementById("logo1"));
-        const logo2 = new DVDLogo(document.getElementById("logo2"));
-        
-        function animate() {
-            logo1.move();
-            logo2.move();
-            
-            if (checkCollision(logo1, logo2)) {
-                logo1.dx *= -1;
-                logo1.dy *= -1;
-                logo2.dx *= -1;
-                logo2.dy *= -1;
-            }
-            
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
     </script>
 </body>
 </html>

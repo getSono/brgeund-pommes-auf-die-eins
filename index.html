@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVD Logo Bewegung</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .logo {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn.discordapp.com/avatars/1083814113643339777/26d4edea0253824433ec880844281d16.png?size=1024" class="logo" id="logo1">
+        <img src="https://cdn.discordapp.com/avatars/116140704346013705/a_5d3438bbde71eb68b04cf9d766c42cbe.gif?size=1024" class="logo" id="logo2">
+    </div>
+    <script>
+        class DVDLogo {
+            constructor(element) {
+                this.el = element;
+                this.x = Math.random() * (window.innerWidth - 100);
+                this.y = Math.random() * (window.innerHeight - 100);
+                this.dx = (Math.random() < 0.5 ? 1 : -1) * 2;
+                this.dy = (Math.random() < 0.5 ? 1 : -1) * 2;
+            }
+            move() {
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x <= 0 || this.x + 100 >= window.innerWidth) this.dx *= -1;
+                if (this.y <= 0 || this.y + 100 >= window.innerHeight) this.dy *= -1;
+                this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+            }
+        }
+        
+        function checkCollision(logoA, logoB) {
+            return (
+                logoA.x < logoB.x + 100 &&
+                logoA.x + 100 > logoB.x &&
+                logoA.y < logoB.y + 100 &&
+                logoA.y + 100 > logoB.y
+            );
+        }
+        
+        const logo1 = new DVDLogo(document.getElementById("logo1"));
+        const logo2 = new DVDLogo(document.getElementById("logo2"));
+        
+        function animate() {
+            logo1.move();
+            logo2.move();
+            
+            if (checkCollision(logo1, logo2)) {
+                logo1.dx *= -1;
+                logo1.dy *= -1;
+                logo2.dx *= -1;
+                logo2.dy *= -1;
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
